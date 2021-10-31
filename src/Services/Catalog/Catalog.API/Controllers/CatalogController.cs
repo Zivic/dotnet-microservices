@@ -17,6 +17,12 @@ namespace Catalog.API.Controllers
         private readonly IProductRepository _repository;
         private readonly ILogger<CatalogController> _logger;
 
+        public CatalogController(IProductRepository repository, ILogger<CatalogController> logger)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>),(int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
